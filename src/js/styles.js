@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
-import { size, position } from 'polished';
+import { size, position, padding } from 'polished';
 
 const BG_COLOR_MENU = '#1d1d27';
 
@@ -9,23 +9,28 @@ const stroke = keyframes`
 	}
 `;
 
-export const StyledMenuBorder = styled.div`
-  ${size('2.4em', '10.9em')};
-  ${position('absolute', null, null, '99%', 0)};
-  background-color: ${BG_COLOR_MENU};
-  clip-path: url(#menu);
-  transition: transform 0.7s;
+const DURATION = '0.7s';
+
+const TRANSFORM_DEFAULT = css`
+  transition: transform ${DURATION};
   will-change: transform;
 `;
 
+export const StyledMenuBorder = styled.div`
+  ${size('2.4em', '10.9em')};
+  ${position('absolute', null, null, '99%', 0)};
+  ${TRANSFORM_DEFAULT};
+  background-color: ${BG_COLOR_MENU};
+  clip-path: url(#menu);
+`;
+
 export const StyledMenu = styled.div`
+  ${padding(null, '2.85em')}
   align-items: center;
   background-color: ${BG_COLOR_MENU};
   display: flex;
   font-size: 1.5em;
   justify-content: center;
-  margin: 0;
-  padding: 0 2.85em;
   position: relative;
   width: 32.05em;
 
@@ -44,9 +49,8 @@ export const StyledMenuItem = styled.button`
   justify-content: center;
   padding: 0.55em 0 0.85em;
   position: relative;
-  transition: transform 0.7s;
-  will-change: transform;
   z-index: 100;
+  ${TRANSFORM_DEFAULT};
 
   &::before {
     ${size('4.2em')};
@@ -54,7 +58,7 @@ export const StyledMenuItem = styled.button`
     content: '';
     position: absolute;
     transform: scale(0);
-    transition: background-color 0.7s, transform 0.7s;
+    transition: background-color ${DURATION}, transform ${DURATION};
     z-index: -1;
   }
 
@@ -97,7 +101,7 @@ export const StyledMain = styled.main`
   margin: 0;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.7s;
+  transition: background-color ${DURATION};
 
   * {
     box-sizing: inherit;

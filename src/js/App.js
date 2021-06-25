@@ -1,12 +1,8 @@
 import React, { createRef, useCallback, useEffect, useState } from 'react';
 import ITEMS from './Items';
-import {
-  StyledMain,
-  StyledMenu,
-  StyledMenuBorder,
-  StyledMenuItem,
-} from './styles';
+import { StyledMain, StyledMenu, StyledMenuBorder } from './styles';
 import SvgWrap from './SvgWrap';
+import MenuItem from './MenuItem';
 
 const getState = idx => ({
   activeIndex: idx,
@@ -39,15 +35,14 @@ const App = () => {
   return (
     <StyledMain {...state}>
       <StyledMenu ref={menuRef}>
-        {ITEMS.map(({ ref, Icon, key, body }, idx) => {
+        {ITEMS.map(({ ref, key, ...rest }, idx) => {
           const isActive = idx === state.activeIndex;
 
           return (
-            <StyledMenuItem
-              type="button"
+            <MenuItem
               {...{
+                ...rest,
                 background: key,
-                body,
                 onClick: () => {
                   if (!isActive) {
                     setState(prev => ({
@@ -62,9 +57,7 @@ const App = () => {
                 key,
                 ref,
               }}
-            >
-              <Icon {...{ isActive }} />
-            </StyledMenuItem>
+            />
           );
         })}
 
